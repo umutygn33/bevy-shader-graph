@@ -1,0 +1,70 @@
+[package]
+name = "bevy_shader_graph"
+version = "0.5.0"
+edition = "2021"
+authors = ["Robert G. Jakabosky <rjakabosky+neopallium@neoawareness.com>"]
+license = "MIT/Apache-2.0"
+description = "Shader graph for Bevy."
+keywords = ["Shadergraph", "node", "graph"]
+repository = "https://github.com/Neopallium/bevy_shader_graph"
+homepage = "https://github.com/Neopallium/bevy_shader_graph"
+
+exclude = ["examples/*", "assets/textures/*"]
+
+[features]
+default = ["egui", "winit", "file_watcher"]
+
+# file/embed watcher
+file_watcher = ["bevy/file_watcher", "bevy/embedded_watcher"]
+
+# To make winit happy when running `cargo check` or `cargo publish`.
+winit = ["dep:winit"]
+
+egui = ["bevy_egui", "dep:egui", "egui_extras"]
+
+[dependencies]
+#node_engine = { version = "0.7", path = "../node_engine/" }
+node_engine = { version = "0.7" }
+
+anyhow = "1.0"
+log = "0.4"
+serde = { version = "1", features = ["derive", "rc"] }
+serde_json = { version = "1" }
+
+glam = { version = "0.30", features = ["serde"] }
+
+bevy = { version = "0.17", default-features = false, features = [
+	"bevy_asset",
+	"bevy_render",
+	"bevy_pbr",
+] }
+bevy_egui = { version = "0.37", default-features = false, optional = true }
+egui = { version = "0.32", default-features = false, optional = true }
+egui_extras = { version = "0.32", default-features = false, optional = true }
+
+winit = { version = "0.30", optional = true }
+
+[dev-dependencies]
+bevy = { version = "0.17", features = [
+	"basis-universal",
+	"jpeg",
+	"tga",
+	"exr",
+	"zlib",
+	"ktx2",
+] }
+
+bevy_egui = { version = "0.37" }
+egui = { version = "0.32" }
+egui_extras = { version = "0.32" }
+
+bevy-inspector-egui = { version = "0.34" }
+bevy_panorbit_camera = { version = "0.30", features = ["bevy_egui"] }
+
+# Enable a small amount of optimization in debug mode
+[profile.dev]
+opt-level = 1
+
+# Enable high optimizations for dependencies (incl. Bevy), but not for our code:
+[profile.dev.package."*"]
+opt-level = 3
