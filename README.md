@@ -22,3 +22,7 @@ cargo run --release --example editor -- ./interior_mapping.json
 - Bevy 0.14: `bevy_shader_graph = "0.1"`
 - Bevy 0.13: `bevy_shader_graph = "0.0.2"`
 - Bevy 0.12: `bevy_shader_graph = "0.0.1"`
+
+## Mirror Notice
+
+This repository is a mirror of the original project. Original authorship and commit history are preserved.
